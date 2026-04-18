@@ -1,16 +1,66 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import reportWebVitals from './reportWebVitals';
 import Dashboard from './pages/dashboard';
+import Agents from './pages/agents';
+import SignIn from './pages/sign-in';
+import { AuthProvider, ProtectedRoute, PublicOnlyRoute } from './auth';
+import { WorkspaceProvider } from './workspaces';
+import Signup from './pages/signup';
+import ConfirmEmail from './pages/confirm-email';
+
+function ProtectedApp() {
+  return (
+    <ProtectedRoute>
+      <WorkspaceProvider>
+        <Outlet />
+      </WorkspaceProvider>
+    </ProtectedRoute>
+  );
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Dashboard />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<ProtectedApp />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/agents" element={<Agents />} />
+          </Route>
+          <Route
+            path="/login"
+            element={(
+              <PublicOnlyRoute>
+                <SignIn />
+              </PublicOnlyRoute>
+            )}
+          />
+          <Route
+            path="/signup"
+            element={(
+              <PublicOnlyRoute>
+                <Signup />
+              </PublicOnlyRoute>
+            )}
+          />
+          <Route
+            path="/confirm-email"
+            element={<ConfirmEmail />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
 

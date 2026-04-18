@@ -9,43 +9,41 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
-import {
-  IndiaFlag,
-  UsaFlag,
-  BrazilFlag,
-  GlobeFlag,
-} from '../internals/components/CustomIcons';
+import ImageIcon from '@mui/icons-material/Image';
+import MovieIcon from '@mui/icons-material/Movie';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
+  { label: 'Imagens', value: 50000 },
+  { label: 'Videos', value: 35000 },
+  { label: 'Audios', value: 10000 },
+  { label: 'Outros', value: 5000 },
 ];
 
 const countries = [
   {
-    name: 'India',
+    name: 'Imagens',
     value: 50,
-    flag: <IndiaFlag />,
+    flag: <ImageIcon />,
     color: 'hsl(220, 25%, 65%)',
   },
   {
-    name: 'USA',
+    name: 'Videos',
     value: 35,
-    flag: <UsaFlag />,
+    flag: <MovieIcon />,
     color: 'hsl(220, 25%, 45%)',
   },
   {
-    name: 'Brazil',
+    name: 'Audios',
     value: 10,
-    flag: <BrazilFlag />,
+    flag: <MusicNoteIcon />,
     color: 'hsl(220, 25%, 30%)',
   },
   {
-    name: 'Other',
+    name: 'Outros',
     value: 5,
-    flag: <GlobeFlag />,
+    flag: <InsertDriveFileIcon />,
     color: 'hsl(220, 25%, 20%)',
   },
 ];
@@ -129,7 +127,7 @@ export default function ChartUserByCountry() {
     >
       <CardContent>
         <Typography component="h2" variant="subtitle2">
-          Users by country
+          Armazenamento por mídia
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PieChart
@@ -153,7 +151,7 @@ export default function ChartUserByCountry() {
             width={260}
             hideLegend
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel primaryText="98.5GB" secondaryText="Total" />
           </PieChart>
         </Box>
         {countries.map((country, index) => (

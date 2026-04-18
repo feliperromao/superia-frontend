@@ -14,9 +14,9 @@ import StatCard, { StatCardProps } from './StatCard';
 
 const data: StatCardProps[] = [
   {
-    title: 'Users',
-    value: '14k',
-    interval: 'Last 30 days',
+    title: 'Contatos',
+    value: '1.4k',
+    interval: 'Ultimos 30 dias',
     trend: 'up',
     data: [
       200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340, 380,
@@ -24,9 +24,9 @@ const data: StatCardProps[] = [
     ],
   },
   {
-    title: 'Conversions',
-    value: '325',
-    interval: 'Last 30 days',
+    title: 'Conversas',
+    value: '187',
+    interval: 'Ultimas 24 horas',
     trend: 'down',
     data: [
       1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600, 820,

@@ -7,9 +7,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import { useNavigate } from 'react-router-dom';
 import MenuButton from './MenuButton';
 import MenuContent from './MenuContent';
-import CardAlert from './CardAlert';
+import { useAuth } from '../auth';
 
 interface SideMenuMobileProps {
   open: boolean | undefined;
@@ -17,6 +18,23 @@ interface SideMenuMobileProps {
 }
 
 export default function SideMenuMobile({ open, toggleDrawer }: SideMenuMobileProps) {
+  const navigate = useNavigate();
+  const { logout, user, isLoadingUser } = useAuth();
+  const userName = user?.name || 'Usuario';
+  const userInitials = userName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('') || 'U';
+  const userEmail = user?.email || '';
+
+  const handleLogout = () => {
+    logout();
+    toggleDrawer(false)();
+    navigate('/login', { replace: true });
+  };
+
   return (
     <Drawer
       anchor="right"
@@ -43,13 +61,20 @@ export default function SideMenuMobile({ open, toggleDrawer }: SideMenuMobilePro
           >
             <Avatar
               sizes="small"
-              alt="Riley Carter"
-              src="/static/images/avatar/7.jpg"
+              alt={userName}
+              src={user?.avatarUrl ?? undefined}
               sx={{ width: 24, height: 24 }}
-            />
-            <Typography component="p" variant="h6">
-              Riley Carter
-            </Typography>
+            >
+              {userInitials}
+            </Avatar>
+            <Stack sx={{ minWidth: 0 }}>
+              <Typography component="p" variant="h6" noWrap>
+                {isLoadingUser ? 'Carregando...' : userName}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" noWrap>
+                {isLoadingUser ? 'Buscando perfil...' : userEmail}
+              </Typography>
+            </Stack>
           </Stack>
           <MenuButton showBadge>
             <NotificationsRoundedIcon />
@@ -60,10 +85,14 @@ export default function SideMenuMobile({ open, toggleDrawer }: SideMenuMobilePro
           <MenuContent />
           <Divider />
         </Stack>
-        <CardAlert />
         <Stack sx={{ p: 2 }}>
-          <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />}>
-            Logout
+          <Button
+            variant="outlined"
+            fullWidth
+            startIcon={<LogoutRoundedIcon />}
+            onClick={handleLogout}
+          >
+            Sair
           </Button>
         </Stack>
       </Stack>

@@ -1,0 +1,5 @@
+export enum  AGENT_STATUS {
+  STARTING = "STARTING",
+  RUNNING = "RUNNING",
+  STOPPED = "STOPPED",
+}

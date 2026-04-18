@@ -1,24 +1,23 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import MuiAvatar from '@mui/material/Avatar';
 import MuiListItemAvatar from '@mui/material/ListItemAvatar';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListSubheader from '@mui/material/ListSubheader';
 import Select, { SelectChangeEvent, selectClasses } from '@mui/material/Select';
-import Divider from '@mui/material/Divider';
-import { styled } from '@mui/material/styles';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
-import SmartphoneRoundedIcon from '@mui/icons-material/SmartphoneRounded';
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
+import Typography from '@mui/material/Typography';
+import { alpha, styled } from '@mui/material/styles';
+import AttachMoneyRounded from '@mui/icons-material/AttachMoneyRounded';
+import { useWorkspaces, Workspace } from '../workspaces';
+import { brand, gray } from '../shared-theme/themePrimitives';
 
 const Avatar = styled(MuiAvatar)(({ theme }) => ({
-  width: 28,
-  height: 28,
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-  color: (theme.vars || theme).palette.text.secondary,
-  border: `1px solid ${(theme.vars || theme).palette.divider}`,
+  width: 34,
+  height: 34,
+  backgroundColor: alpha(brand[400], 0.12),
+  color: (theme.vars || theme).palette.primary.main,
+  border: `1px solid ${alpha(brand[300], 0.2)}`,
 }));
 
 const ListItemAvatar = styled(MuiListItemAvatar)({
@@ -26,77 +25,147 @@ const ListItemAvatar = styled(MuiListItemAvatar)({
   marginRight: 12,
 });
 
-export default function SelectContent() {
-  const [company, setCompany] = React.useState('');
+export default function SelectWorkspace() {
+  const {
+    workspaces,
+    selectedWorkspaceId,
+    selectedWorkspace,
+    isLoading,
+    error,
+    setSelectedWorkspaceId,
+  } = useWorkspaces();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCompany(event.target.value as string);
+    setSelectedWorkspaceId(event.target.value as string);
   };
 
+  const renderWorkspace = React.useCallback((workspace: Workspace | null, fallbackLabel: string) => (
+    <>
+      <ListItemAvatar>
+        <Avatar alt={workspace?.name ?? fallbackLabel}>
+          <AttachMoneyRounded sx={{ fontSize: '1rem' }} />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={workspace?.name ?? fallbackLabel}
+        secondary={workspace?.secondaryLabel ?? fallbackLabel}
+        primaryTypographyProps={{
+          fontSize: 14,
+          fontWeight: 700,
+        }}
+        secondaryTypographyProps={{
+          fontSize: 12,
+          color: 'text.secondary',
+        }}
+      />
+    </>
+  ), []);
+
+  const renderValue = React.useCallback(
+    (selected: string) => {
+      if (isLoading) {
+        return renderWorkspace(null, 'Carregando workspaces...');
+      }
+
+      if (selectedWorkspace) {
+        return renderWorkspace(selectedWorkspace, selectedWorkspace.name);
+      }
+
+      if (!workspaces.length) {
+        return renderWorkspace(null, 'Nenhum workspace');
+      }
+
+      const workspace = workspaces.find((item) => item.id === selected) ?? null;
+      return renderWorkspace(workspace, 'Selecionar workspace');
+    },
+    [isLoading, renderWorkspace, selectedWorkspace, workspaces],
+  );
+
   return (
-    <Select
-      labelId="company-select"
-      id="company-simple-select"
-      value={company}
-      onChange={handleChange}
-      displayEmpty
-      inputProps={{ 'aria-label': 'Select company' }}
-      fullWidth
+    <Box
       sx={{
-        maxHeight: 56,
-        width: 215,
-        '&.MuiList-root': {
-          p: '8px',
-        },
-        [`& .${selectClasses.select}`]: {
-          display: 'flex',
-          alignItems: 'center',
-          gap: '2px',
-          pl: 1,
-        },
+        width: '100%',
+        px: 1,
+        py: 1.25,
+        borderRadius: 3,
+        border: '1px solid',
+        borderColor: alpha(brand[400], 0.16),
+        background: `linear-gradient(180deg, ${alpha(gray[500], 0.08)} 0%, ${alpha(gray[900], 0)} 100%)`,
       }}
     >
-      <ListSubheader sx={{ pt: 0 }}>Production</ListSubheader>
-      <MenuItem value="">
-        <ListItemAvatar>
-          <Avatar alt="Sitemark web">
-            <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Sitemark-web" secondary="Web app" />
-      </MenuItem>
-      <MenuItem value={10}>
-        <ListItemAvatar>
-          <Avatar alt="Sitemark App">
-            <SmartphoneRoundedIcon sx={{ fontSize: '1rem' }} />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Sitemark-app" secondary="Mobile application" />
-      </MenuItem>
-      <MenuItem value={20}>
-        <ListItemAvatar>
-          <Avatar alt="Sitemark Store">
-            <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Sitemark-Store" secondary="Web app" />
-      </MenuItem>
-      <ListSubheader>Development</ListSubheader>
-      <MenuItem value={30}>
-        <ListItemAvatar>
-          <Avatar alt="Sitemark Store">
-            <ConstructionRoundedIcon sx={{ fontSize: '1rem' }} />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Sitemark-Admin" secondary="Web app" />
-      </MenuItem>
-      <Divider sx={{ mx: -1 }} />
-      <MenuItem value={40}>
-        <ListItemIcon>
-          <AddRoundedIcon />
-        </ListItemIcon>
-        <ListItemText primary="Add product" secondary="Web app" />
-      </MenuItem>
-    </Select>
+      <Typography
+        variant="caption"
+        sx={{
+          display: 'block',
+          px: 0.5,
+          pb: 1,
+          color: 'text.secondary',
+          textTransform: 'uppercase',
+          letterSpacing: '0.12em',
+          fontWeight: 700,
+        }}
+      >
+        Workspace ativo
+      </Typography>
+      <Select
+        labelId="company-select"
+        id="company-simple-select"
+        value={selectedWorkspaceId}
+        onChange={handleChange}
+        displayEmpty
+        renderValue={renderValue}
+        inputProps={{ 'aria-label': 'Select company' }}
+        fullWidth
+        disabled={isLoading || workspaces.length === 0}
+        sx={{
+          minHeight: 64,
+          width: '100%',
+          borderRadius: 3,
+          borderColor: alpha(brand[400], 0.12),
+          backgroundColor: alpha(gray[500], 0.06),
+          '&.MuiList-root': {
+            p: '8px',
+          },
+          [`& .${selectClasses.select}`]: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2px',
+            px: 1.25,
+            py: 1,
+          },
+          [`& .${selectClasses.icon}`]: {
+            right: 14,
+            color: 'text.secondary',
+          },
+          '&:hover': {
+            backgroundColor: alpha(gray[500], 0.1),
+            borderColor: alpha(brand[400], 0.2),
+          },
+        }}
+      >
+        <ListSubheader sx={{ pt: 0 }}>Workspaces</ListSubheader>
+        {error ? (
+          <MenuItem value="" disabled>
+            <ListItemText
+              primary="Erro ao carregar"
+              secondary={error}
+            />
+          </MenuItem>
+        ) : null}
+        {!error && !isLoading && workspaces.length === 0 ? (
+          <MenuItem value="" disabled>
+            <ListItemText
+              primary="Nenhum workspace encontrado"
+              secondary="Sua conta ainda nao possui workspaces."
+            />
+          </MenuItem>
+        ) : null}
+        {workspaces.map((workspace) => (
+          <MenuItem key={workspace.id} value={workspace.id}>
+            {renderWorkspace(workspace, workspace.name)}
+          </MenuItem>
+        ))}
+      </Select>
+    </Box>
   );
 }
