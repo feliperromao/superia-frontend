@@ -25,6 +25,8 @@ export default function NavbarBreadcrumbs() {
         return 'Home';
       case '/agents':
         return 'Agentes';
+      case '/llms':
+        return 'Modelos de Linguagem';
       case '/channels':
         return 'Canais';
       case '/contacts':

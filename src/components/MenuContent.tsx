@@ -19,11 +19,13 @@ import {
   FormatAlignLeft,
   Groups3,
   Assistant,
+  PsychologyRounded,
 } from '@mui/icons-material';
 import { brand, gray } from '../shared-theme/themePrimitives';
 
 const mainListItems = [
   { text: 'Dashboard', icon: <Speed />, path: '/', hint: 'Visao geral' },
+  { text: 'Modelos', icon: <PsychologyRounded />, path: '/llms', hint: 'Modelos e chaves' },
   { text: 'Agentes', icon: <Assistant />, path: '/agents', hint: 'Operacao ativa' },
   { text: 'Canais', icon: <WhatsApp />, path: '/channels', hint: 'Conversas' },
   { text: 'Contatos', icon: <AccountBoxOutlined />, path: '/contacts', hint: 'Base ativa' },

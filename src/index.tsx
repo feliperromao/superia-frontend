@@ -10,6 +10,7 @@ import '@fontsource/roboto/700.css';
 import reportWebVitals from './reportWebVitals';
 import Dashboard from './pages/dashboard';
 import Agents from './pages/agents';
+import Llms from './pages/llms';
 import SignIn from './pages/sign-in';
 import { AuthProvider, ProtectedRoute, PublicOnlyRoute } from './auth';
 import { WorkspaceProvider } from './workspaces';
@@ -37,6 +38,7 @@ root.render(
           <Route element={<ProtectedApp />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/agents" element={<Agents />} />
+            <Route path="/llms" element={<Llms />} />
           </Route>
           <Route
             path="/login"
