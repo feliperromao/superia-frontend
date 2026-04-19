@@ -32,50 +32,50 @@ export const LLM_PROVIDER_CATALOG: LlmProviderCatalogItem[] = [
       { value: 'gemini-3.1-fast', label: 'Gemini 3.1 Fast' },
     ],
   },
-  {
-    value: 'ANTHROPIC',
-    label: 'Anthropic',
-    models: [
-      { value: 'claude-3-7-sonnet', label: 'Claude 3.7 Sonnet' },
-      { value: 'claude-3-5-sonnet', label: 'Claude 3.5 Sonnet' },
-      { value: 'claude-3-5-haiku', label: 'Claude 3.5 Haiku' },
-    ],
-  },
-  {
-    value: 'META',
-    label: 'Meta',
-    models: [
-      { value: 'llama-3.3-70b', label: 'Llama 3.3 70B' },
-      { value: 'llama-3.1-405b', label: 'Llama 3.1 405B' },
-      { value: 'llama-3.1-70b', label: 'Llama 3.1 70B' },
-    ],
-  },
-  {
-    value: 'MISTRAL',
-    label: 'Mistral',
-    models: [
-      { value: 'mistral-large', label: 'Mistral Large' },
-      { value: 'mistral-small', label: 'Mistral Small' },
-      { value: 'codestral', label: 'Codestral' },
-    ],
-  },
-  {
-    value: 'DEEPSEEK',
-    label: 'DeepSeek',
-    models: [
-      { value: 'deepseek-chat', label: 'DeepSeek Chat' },
-      { value: 'deepseek-reasoner', label: 'DeepSeek Reasoner' },
-    ],
-  },
-  {
-    value: 'GROQ',
-    label: 'Groq',
-    models: [
-      { value: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B Versatile' },
-      { value: 'mixtral-8x7b-32768', label: 'Mixtral 8x7B 32K' },
-      { value: 'gemma2-9b-it', label: 'Gemma 2 9B IT' },
-    ],
-  },
+  // {
+  //   value: 'ANTHROPIC',
+  //   label: 'Anthropic',
+  //   models: [
+  //     { value: 'claude-3-7-sonnet', label: 'Claude 3.7 Sonnet' },
+  //     { value: 'claude-3-5-sonnet', label: 'Claude 3.5 Sonnet' },
+  //     { value: 'claude-3-5-haiku', label: 'Claude 3.5 Haiku' },
+  //   ],
+  // },
+  // {
+  //   value: 'META',
+  //   label: 'Meta',
+  //   models: [
+  //     { value: 'llama-3.3-70b', label: 'Llama 3.3 70B' },
+  //     { value: 'llama-3.1-405b', label: 'Llama 3.1 405B' },
+  //     { value: 'llama-3.1-70b', label: 'Llama 3.1 70B' },
+  //   ],
+  // },
+  // {
+  //   value: 'MISTRAL',
+  //   label: 'Mistral',
+  //   models: [
+  //     { value: 'mistral-large', label: 'Mistral Large' },
+  //     { value: 'mistral-small', label: 'Mistral Small' },
+  //     { value: 'codestral', label: 'Codestral' },
+  //   ],
+  // },
+  // {
+  //   value: 'DEEPSEEK',
+  //   label: 'DeepSeek',
+  //   models: [
+  //     { value: 'deepseek-chat', label: 'DeepSeek Chat' },
+  //     { value: 'deepseek-reasoner', label: 'DeepSeek Reasoner' },
+  //   ],
+  // },
+  // {
+  //   value: 'GROQ',
+  //   label: 'Groq',
+  //   models: [
+  //     { value: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B Versatile' },
+  //     { value: 'mixtral-8x7b-32768', label: 'Mixtral 8x7B 32K' },
+  //     { value: 'gemma2-9b-it', label: 'Gemma 2 9B IT' },
+  //   ],
+  // },
 ];
 
 export function getProviderLabel(provider: string) {
