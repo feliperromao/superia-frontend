@@ -62,11 +62,12 @@ export default function OptionsMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={() => navigate('/profile', { replace: true })}>Meu perfil</MenuItem>
+        <MenuItem onClick={() => navigate('/account', { replace: true })}>Minha conta</MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>Add another account</MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={() => navigate('/settings', { replace: true })}>
+          Configurações
+        </MenuItem>
         <Divider />
         <MenuItem
           onClick={handleLogout}
